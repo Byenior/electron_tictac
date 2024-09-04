@@ -1,3 +1,6 @@
+//  npm start (for test)
+//  npm run build (for build program)
+
 const board = document.querySelectorAll(".cell");
 const restartButton = document.getElementById("restart");
 
