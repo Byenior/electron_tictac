@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!-- <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    /> -->
+    <!-- <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com"
+    /> -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src *; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; img-src *; font-src *; connect-src *"
+    />
+
+    <title>ABC</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="body">
+      <div class="game-container">
+        <p id="room-info">Room: 1234</p>
+        <div id="board">
+          <div class="cell" data-index="0"></div>
+          <div class="cell" data-index="1"></div>
+          <div class="cell" data-index="2"></div>
+          <div class="cell" data-index="3"></div>
+          <div class="cell" data-index="4"></div>
+          <div class="cell" data-index="5"></div>
+          <div class="cell" data-index="6"></div>
+          <div class="cell" data-index="7"></div>
+          <div class="cell" data-index="8"></div>
+        </div>
+        <button id="restart">Restart</button>
+      </div>
+    </div>
+  </body>
+</html>
+<script src="script.js"></script>
+
+<script src="https://cdn.socket.io/4.4.1/socket.io.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/reconnecting-websocket@4.4.0/dist/reconnecting-websocket.min.js"></script> -->
+
+<script>
+  const socket = io("http://localhost:7788"); // Adjust to your server URL
+
+  socket.on("connect", () => {
+    console.log("Connected to server");
+    socket.emit("message", "Hello from client!");
+  });
+
+  socket.on("message", (data) => {
+    console.log("Message from server:", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Disconnected from server");
+  });
+
+  //   const ws = new ReconnectingWebSocket('ws://localhost:7789');
+
+  // ws.onopen = () => {
+  //   console.log('WebSocket connection established');
+  // };
+
+  // ws.onmessage = (event) => {
+  //   console.log('Message from server:', event.data);
+  // };
+
+  // ws.onclose = () => {
+  //   console.log('WebSocket connection closed');
+  // };
+</script>
